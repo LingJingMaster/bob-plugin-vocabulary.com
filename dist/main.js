@@ -19761,9 +19761,10 @@ function parseResult($2, word) {
   const long = $2(".word-area p.long").first().text().trim();
   if (short)
     additions.push({ name: "Explanation", value: short });
-  if (long)
+  if (long && api.getOption("showMore") !== "no")
     additions.push({ name: "More", value: long });
-  additions.push(...examples);
+  if (api.getOption("showExamples") !== "no")
+    additions.push(...examples);
   const forms = $2(".word-area p b").first().text().trim().split(";").map((s) => s.trim()).filter(Boolean);
   return {
     word,

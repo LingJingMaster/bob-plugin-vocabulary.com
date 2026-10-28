@@ -55,8 +55,8 @@ function parseResult($: CheerioAPI, word: string) {
     const short = $('.word-area p.short').first().text().trim();
     const long = $('.word-area p.long').first().text().trim();
     if (short) additions.push({ name: 'Explanation', value: short });
-    if (long) additions.push({ name: 'More', value: long });
-    additions.push(...examples);
+    if (long && api.getOption('showMore') !== 'no') additions.push({ name: 'More', value: long });
+    if (api.getOption('showExamples') !== 'no') additions.push(...examples);
     const forms = $('.word-area p b').first().text().trim().split(';').map(s => s.trim()).filter(Boolean);
     return {
         word,

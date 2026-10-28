@@ -38,6 +38,7 @@ Bob 是一款 macOS 平台的 翻译 和 OCR 软件
 2. 获取构建得到的 `.bobplugin` 文件（目前尚未发布 Release）
 3. 双击安装
 4. 选择偏好的发音来源
+5. 在插件设置中选择是否显示补充解释和例句；两项默认显示。
 
 ## 编译打包
 1. Bob文档 - [开发插件](https://bobtranslate.com/plugin/)

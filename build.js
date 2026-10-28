@@ -30,6 +30,18 @@ const INFO_JSON = {
             value: "youDao"
         }],
         desc: "可选的发音来源，默认为google"
+    }, {
+        identifier: "showMore",
+        type: "menu",
+        title: "显示补充解释（More）",
+        defaultValue: "yes",
+        menuValues: [{ title: "显示", value: "yes" }, { title: "隐藏", value: "no" }]
+    }, {
+        identifier: "showExamples",
+        type: "menu",
+        title: "显示例句",
+        defaultValue: "yes",
+        menuValues: [{ title: "显示", value: "yes" }, { title: "隐藏", value: "no" }]
     }],
 
 };
