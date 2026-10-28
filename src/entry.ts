@@ -17,21 +17,21 @@ function translate(query) {
         timeout: 15,
         handler: (resp) => {
             if (resp.error || (resp.response && resp.response.statusCode >= 400)) {
-                query.onCompletion({ error: { type: 'network', message: '无法连接 Vocabulary.com，请检查网络后重试。' } });
+                query.onCompletion({ error: { type: 'network', message: 'Cannot connect to Vocabulary.com. Check your connection and try again.' } });
                 return;
             }
             try {
                 if (typeof resp.data !== 'string') throw new Error('Invalid response');
                 const $ = load(resp.data);
                 if ($('.wordnotfound-wrapper').length) {
-                    query.onCompletion({ error: { type: 'notFound', message: '词典未找到该词。' } });
+                    query.onCompletion({ error: { type: 'notFound', message: 'No dictionary entry found.' } });
                     return;
                 }
                 const dict = parseResult($, word);
                 if (!dict.parts.length && !dict.additions.length) throw new Error('No dictionary content');
                 query.onCompletion({ result: { toDict: dict } });
             } catch (error) {
-                query.onCompletion({ error: { type: 'api', message: '词典返回内容无法解析，请稍后重试。' } });
+                query.onCompletion({ error: { type: 'api', message: 'Unable to read the dictionary response. Please try again later.' } });
             }
         }
     });
@@ -49,7 +49,7 @@ function parseResult($: CheerioAPI, word: string) {
         const sentences = $(this).children('.defContent').find('.example').map(function () {
             return $(this).text().trim();
         }).get().filter(Boolean);
-        if (sentences.length) examples.push({ name: `例句 · 义项 ${parts.length}`, value: sentences.join('\n') });
+        if (sentences.length) examples.push({ name: `Examples · Sense ${parts.length}`, value: sentences.join('\n') });
     });
     const additions: {name: string; value: string}[] = [];
     const short = $('.word-area p.short').first().text().trim();

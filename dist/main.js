@@ -19717,7 +19717,7 @@ function translate(query) {
     timeout: 15,
     handler: (resp) => {
       if (resp.error || resp.response && resp.response.statusCode >= 400) {
-        query.onCompletion({ error: { type: "network", message: "\u65E0\u6CD5\u8FDE\u63A5 Vocabulary.com\uFF0C\u8BF7\u68C0\u67E5\u7F51\u7EDC\u540E\u91CD\u8BD5\u3002" } });
+        query.onCompletion({ error: { type: "network", message: "Cannot connect to Vocabulary.com. Check your connection and try again." } });
         return;
       }
       try {
@@ -19725,7 +19725,7 @@ function translate(query) {
           throw new Error("Invalid response");
         const $2 = load(resp.data);
         if ($2(".wordnotfound-wrapper").length) {
-          query.onCompletion({ error: { type: "notFound", message: "\u8BCD\u5178\u672A\u627E\u5230\u8BE5\u8BCD\u3002" } });
+          query.onCompletion({ error: { type: "notFound", message: "No dictionary entry found." } });
           return;
         }
         const dict = parseResult($2, word);
@@ -19733,7 +19733,7 @@ function translate(query) {
           throw new Error("No dictionary content");
         query.onCompletion({ result: { toDict: dict } });
       } catch (error2) {
-        query.onCompletion({ error: { type: "api", message: "\u8BCD\u5178\u8FD4\u56DE\u5185\u5BB9\u65E0\u6CD5\u89E3\u6790\uFF0C\u8BF7\u7A0D\u540E\u91CD\u8BD5\u3002" } });
+        query.onCompletion({ error: { type: "api", message: "Unable to read the dictionary response. Please try again later." } });
       }
     }
   });
@@ -19754,7 +19754,7 @@ function parseResult($2, word) {
       return $2(this).text().trim();
     }).get().filter(Boolean);
     if (sentences.length)
-      examples.push({ name: `\u4F8B\u53E5 \xB7 \u4E49\u9879 ${parts.length}`, value: sentences.join("\n") });
+      examples.push({ name: `Examples \xB7 Sense ${parts.length}`, value: sentences.join("\n") });
   });
   const additions = [];
   const short = $2(".word-area p.short").first().text().trim();

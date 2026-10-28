@@ -20,28 +20,28 @@ const INFO_JSON = {
     options:[{
         identifier: "ttsType",
         type: "menu",
-        title: "选择发音来源",
+        title: "Pronunciation provider",
         defaultValue: "google",
         menuValues: [{
-            title: "google",
+            title: "Google",
             value: "google"
         },{
-            title: "有道",
+            title: "Youdao",
             value: "youDao"
         }],
-        desc: "可选的发音来源，默认为google"
+        desc: "Choose a pronunciation provider. Default: Google."
     }, {
         identifier: "showMore",
         type: "menu",
-        title: "显示补充解释（More）",
+        title: "Show additional explanation",
         defaultValue: "yes",
-        menuValues: [{ title: "显示", value: "yes" }, { title: "隐藏", value: "no" }]
+        menuValues: [{ title: "Show", value: "yes" }, { title: "Hide", value: "no" }]
     }, {
         identifier: "showExamples",
         type: "menu",
-        title: "显示例句",
+        title: "Show examples",
         defaultValue: "yes",
-        menuValues: [{ title: "显示", value: "yes" }, { title: "隐藏", value: "no" }]
+        menuValues: [{ title: "Show", value: "yes" }, { title: "Hide", value: "no" }]
     }],
 
 };
@@ -53,7 +53,7 @@ const initAppcast = () => {
     const hex = sha.digest("hex");
     const currentVersionInfo = {
         version: version,
-        desc: `见 https://github.com/LingJingMaster/bob-plugin-vocabulary.com/releases`,
+        desc: `See https://github.com/LingJingMaster/bob-plugin-vocabulary.com/releases`,
         sha256: hex,
         url: `https://github.com/LingJingMaster/bob-plugin-vocabulary.com/releases/download/v${version}/bob-plugin-vocabulary.com@${version}.bobplugin`,
         minBobVersion: INFO_JSON.minBobVersion,

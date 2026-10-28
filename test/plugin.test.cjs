@@ -27,6 +27,7 @@ assert.equal(dict.parts[0].means[0], 'meaning one');
 assert.equal(dict.additions[0].value, 'Simple explanation');
 assert.equal(dict.additions[1].value, 'More details');
 assert.equal(dict.additions[2].value, 'Example one');
+assert.equal(dict.additions[2].name, 'Examples · Sense 1');
 assert.equal(dict.phonetics[1].value, '/uk/');
 assert(dict.phonetics[0].tts.value.endsWith('rock%20%26%20roll'));
 context.$option.showMore = 'no';
