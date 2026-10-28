@@ -9,13 +9,13 @@ const PLUGIN_NAME = `bob-plugin-vocabulary.com@${version}.bobplugin`;
 const ARTIFACT_PATH = path.resolve(__dirname, `./release/${PLUGIN_NAME}`);
 
 const INFO_JSON = {
-    identifier: "com.oooops.404error.vocabulary.translate",
+    identifier: "com.lingjing.vocabulary.translate",
     version: version,
     category: "translate",
-    name: "Vocabulary",
-    author: "Oooops-404error",
+    name: "Vocabulary Enhanced",
+    author: "Oops418; LingJingMaster",
     summary: "A powerful English-English dictionary using vocabulary.com",
-    homepage: "https://github.com/Oooops-404error/bob-plugin-vocabulary.com",
+    homepage: "https://github.com/LingJingMaster/bob-plugin-vocabulary.com",
     minBobVersion: "1.8.0",
     options:[{
         identifier: "ttsType",
@@ -31,7 +31,7 @@ const INFO_JSON = {
         }],
         desc: "可选的发音来源，默认为google"
     }],
-    appcast: "https://raw.githubusercontent.com/Oooops-404error/bob-plugin-vocabulary.com/main/appcast.json"
+
 };
 
 const initAppcast = () => {
@@ -41,14 +41,15 @@ const initAppcast = () => {
     const hex = sha.digest("hex");
     const currentVersionInfo = {
         version: version,
-        desc: `见 https://github.com/Oooops-404error/bob-plugin-vocabulary.com/releases`,
+        desc: `见 https://github.com/LingJingMaster/bob-plugin-vocabulary.com/releases`,
         sha256: hex,
-        url: `https://github.com/Oooops-404error/bob-plugin-vocabulary.com/releases/download/v${version}/bob-plugin-vocabulary.com@${version}.bobplugin`,
+        url: `https://github.com/LingJingMaster/bob-plugin-vocabulary.com/releases/download/v${version}/bob-plugin-vocabulary.com@${version}.bobplugin`,
         minBobVersion: INFO_JSON.minBobVersion,
         timestamp: Date.now()
     };
     let appcastPath = path.resolve(__dirname, "./appcast.json");
-    const appcast = JSON.parse(fs.readFileSync(appcastPath, "utf-8"));
+    const appcast = fs.existsSync(appcastPath) ? JSON.parse(fs.readFileSync(appcastPath, "utf-8")) : { identifier: INFO_JSON.identifier, versions: [] };
+    appcast.identifier = INFO_JSON.identifier;
     if (!appcast.versions.find((item) => item.version === currentVersionInfo.version)) {
         appcast.versions.unshift(currentVersionInfo);
         fs.writeFileSync(appcastPath, JSON.stringify(appcast, null, 2), { encoding: "utf-8" });
@@ -63,6 +64,7 @@ const createZip = () => {
         zip.addLocalFile(`./static/${file}`);
     });
     zip.addFile("info.json", JSON.stringify(INFO_JSON));
+    fs.mkdirSync(path.dirname(ARTIFACT_PATH), { recursive: true });
     zip.writeZip(ARTIFACT_PATH);
     console.log(new Date(), "Zip created");
     isRelease && initAppcast();
